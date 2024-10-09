@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro; // Importar para TextMeshPro
 
 public class WeaponController : MonoBehaviour
 {
@@ -8,22 +9,27 @@ public class WeaponController : MonoBehaviour
 
     public AudioSource audioSource;
     public AudioClip shootSound;
-    public AudioClip shortReloadSound; // Sonido corto de recarga tras cada disparo
     public AudioClip fullReloadSound;  // Sonido completo de recarga al recargar todas las balas
 
     public int maxBullets = 6; // Máximo de balas en el tambor
     private int currentBullets;
 
     public float fullReloadTime = 2f; // Tiempo para recargar completamente
-    public float shortReloadTime = 0.5f; // Tiempo de recarga tras cada disparo
     public float fireRate = 3f; // Delay entre disparos en segundos
 
     private bool isReloading = false;
     private bool canShoot = true; // Controla si se puede disparar
 
+    // Referencias a los elementos UI
+    public TextMeshProUGUI bulletCountText; // Texto para mostrar el contador de balas
+    public TextMeshProUGUI reloadPromptText; // Texto para mostrar "Presiona R para recargar"
+
     void Start()
     {
         currentBullets = maxBullets; // Comienza con todas las balas cargadas
+        UpdateBulletUI(); // Actualiza el contador en la UI
+
+        reloadPromptText.gameObject.SetActive(false); // Asegurarse de que el texto de recarga esté oculto al inicio
     }
 
     void Update()
@@ -39,7 +45,10 @@ public class WeaponController : MonoBehaviour
             }
             else
             {
-                Debug.Log("recarga el arma no hay balas");
+                // Mostrar el texto de recarga y ocultar el contador de balas
+                reloadPromptText.gameObject.SetActive(true);
+                bulletCountText.gameObject.SetActive(false); // Ocultar contador de balas
+                Debug.Log("No hay balas, recarga.");
             }
         }
 
@@ -57,7 +66,7 @@ public class WeaponController : MonoBehaviour
         currentBullets--; // Disminuir una bala cada vez que se dispara
 
         audioSource.PlayOneShot(shootSound); // Sonido del disparo
-        StartCoroutine(ShortReload()); // Sonido corto de recarga tras cada disparo
+        UpdateBulletUI(); // Actualizar el contador de balas en la UI
         StartCoroutine(ShootingCooldown()); // Delay entre disparos
     }
 
@@ -66,37 +75,37 @@ public class WeaponController : MonoBehaviour
         Instantiate(bulletPrefab, shootSpawn.position, shootSpawn.rotation);
     }
 
-    // Recarga corta tras cada disparo
-    IEnumerator ShortReload()
-    {
-        isReloading = true;
-        audioSource.PlayOneShot(shortReloadSound); // Sonido corto de recarga
-
-        yield return new WaitForSeconds(shortReloadTime); // Espera el tiempo corto de recarga
-
-        isReloading = false;
-    }
-
     // Recarga completa cuando se presiona 'R'
     IEnumerator FullReload()
     {
         isReloading = true;
         audioSource.PlayOneShot(fullReloadSound); // Sonido largo de recarga
 
-        Debug.Log("recargando el arma");
+        Debug.Log("Recargando el arma...");
 
         yield return new WaitForSeconds(fullReloadTime); // Tiempo de recarga completa
 
         currentBullets = maxBullets; // Recargar todas las balas
-        isReloading = false;
+        UpdateBulletUI(); // Actualizar el contador de balas en la UI
 
-        Debug.Log("arma recargada");
+        // Ocultar el texto de recarga y volver a mostrar el contador de balas
+        reloadPromptText.gameObject.SetActive(false);
+        bulletCountText.gameObject.SetActive(true);
+
+        isReloading = false;
+        Debug.Log("Arma recargada.");
     }
 
     // Cooldown entre disparos
     IEnumerator ShootingCooldown()
     {
-        yield return new WaitForSeconds(fireRate); // Esperar el tiempo definido en fireRate (4 segundos en este caso)
+        yield return new WaitForSeconds(fireRate); // Esperar el tiempo definido en fireRate
         canShoot = true; // Permitir disparar de nuevo
+    }
+
+    // Actualiza el contador de balas en la UI
+    void UpdateBulletUI()
+    {
+        bulletCountText.text = currentBullets + "/" + maxBullets;
     }
 }
