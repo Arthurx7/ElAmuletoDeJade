@@ -1,27 +1,23 @@
 using UnityEngine;
-using System.Collections;
-
 
 public class BombilloFinalController : MonoBehaviour
 {
-    public Bombillo bombillo;          
-    public GameObject[] lucesDeLaCasa; 
-    public Transform teleportDestination; 
-    public GameObject player;          
-    public Animator screenTransition;  
+    public Bombillo bombillo;          // Referencia al script del bombillo que controla la energía
+    public GameObject[] lucesDeLaCasa; // Luces de la casa que se activarán
     private bool lucesEncendidas = false;
 
     void Update()
     {
+        // Revisa continuamente el estado del bombillo
         if (bombillo.ObtenerEstadoCarga() && !lucesEncendidas)
         {
+            // Si el bombillo está encendido y las luces aún no están activadas, activarlas
             ActivarLucesCasa(true);
             lucesEncendidas = true;
-
-            StartCoroutine(TeleportWithTransition());
         }
         else if (!bombillo.ObtenerEstadoCarga() && lucesEncendidas)
         {
+            // Si el bombillo está apagado y las luces están encendidas, apagarlas
             ActivarLucesCasa(false);
             lucesEncendidas = false;
         }
@@ -29,31 +25,10 @@ public class BombilloFinalController : MonoBehaviour
 
     private void ActivarLucesCasa(bool activar)
     {
+        // Activa o desactiva todas las luces de la casa
         foreach (GameObject luzCasa in lucesDeLaCasa)
         {
             luzCasa.SetActive(activar);
         }
-    }
-
-    private IEnumerator TeleportWithTransition()
-    {
-        screenTransition.SetTrigger("Start");
-
-        yield return new WaitForSeconds(1.5f);
-
-        player.transform.position = teleportDestination.position;
-
-        screenTransition.SetTrigger("End");
-
-        yield return new WaitForSeconds(1.5f); 
-
-        player.GetComponent<MonoBehaviour>().enabled = true;  
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        screenTransition.enabled = false;
-
-        yield return null;
     }
 }
