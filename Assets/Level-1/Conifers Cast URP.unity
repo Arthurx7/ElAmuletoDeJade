@@ -21851,6 +21851,7 @@ Transform:
   - {fileID: 389162511}
   - {fileID: 1099507169}
   - {fileID: 73525255}
+  - {fileID: 2005144211}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &829262399 stripped
@@ -25887,7 +25888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToDisable: {fileID: 1151130490}
-  objectToDisable2: {fileID: 1151130490}
+  objectToDisable2: {fileID: 962873297}
 --- !u!1 &965564082
 GameObject:
   m_ObjectHideFlags: 0
@@ -31101,13 +31102,14 @@ GameObject:
   - component: {fileID: 1151130493}
   - component: {fileID: 1151130492}
   - component: {fileID: 1151130491}
+  - component: {fileID: 1151130496}
   m_Layer: 0
   m_Name: DoorEntry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1151130491
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31215,6 +31217,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &1151130496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151130490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d523ce117547142ab09fc3ebd6a5f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPosition: {fileID: 2005144211}
+  screenTransition: {fileID: 0}
 --- !u!1 &1153870991
 GameObject:
   m_ObjectHideFlags: 0
@@ -54834,6 +54850,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7545831556655825222, guid: c8afa2692415e0345bf8ea7d64f6acd9, type: 3}
+--- !u!1 &2005144210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2005144211}
+  m_Layer: 0
+  m_Name: CasaInterior
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2005144211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005144210}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -9.597143, y: 0.2639923, z: 7.4785724}
+  m_LocalScale: {x: 92.857185, y: 130, z: 107.1429}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 827726014}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2008566433
 GameObject:
   m_ObjectHideFlags: 0
