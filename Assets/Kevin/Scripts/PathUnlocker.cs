@@ -8,7 +8,7 @@ public class PathUnlocker : MonoBehaviour
     // Este método será llamado cuando se seleccione la opción del diálogo
     public void DisableObject()
     {
-        objectToDisable.SetActive(false);
+        objectToDisable.SetActive(true);
         objectToDisable2.SetActive(false);
     }
 }
