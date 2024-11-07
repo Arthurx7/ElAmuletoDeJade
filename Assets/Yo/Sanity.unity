@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 329195195}
   - component: {fileID: 329195196}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Cordura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1686,6 +1686,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   postProcessVolume: {fileID: 847647362}
+  vignette: {fileID: 0}
+  chromaticAberration: {fileID: 0}
 --- !u!1 &4459864849597475388
 GameObject:
   m_ObjectHideFlags: 0
