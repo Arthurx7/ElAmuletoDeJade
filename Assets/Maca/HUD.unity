@@ -1056,10 +1056,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38bfe532dce1944c9ab9ddff16d8fd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSanity: 100
-  currentSanity: 0
-  sanityBar: {fileID: 458822419}
-  sanityEffects: {fileID: 343462288}
 --- !u!114 &343462288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1072,7 +1068,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92b737cd5ed866479df393fb60770cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  postProcessVolume: {fileID: 189612536}
 --- !u!1 &379635412
 GameObject:
   m_ObjectHideFlags: 0
@@ -1765,6 +1760,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sanityLoss: 20
+  prefabToSpawn: {fileID: 0}
+  moveDuration: 1
+  playerCamera: {fileID: 0}
+  distanceFromCamera: 2
 --- !u!65 &979535369
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2421,6 +2420,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sanityLoss: 20
+  prefabToSpawn: {fileID: 0}
+  moveDuration: 1
+  playerCamera: {fileID: 0}
+  distanceFromCamera: 2
 --- !u!65 &1552234674
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2436,7 +2439,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2540,6 +2543,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sanityLoss: 20
+  prefabToSpawn: {fileID: 0}
+  moveDuration: 1
+  playerCamera: {fileID: 0}
+  distanceFromCamera: 2
 --- !u!65 &1589282937
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,14 +6,14 @@ using UnityEngine;
 public class LockControl : MonoBehaviour
 {
     private int[] result, correctCombination;
-    
+    public Boolean Rotacion = false;
+
     // Start is called before the first frame update
     void Start()
     {
         result = new int[]{0,0,0,0,0};
         correctCombination = new int[] {1,2,3,4,5};
         RotatePadlock.Rotated += CheckResults;
-        
     }
 
     private void CheckResults(string wheelName, int number)
@@ -44,11 +45,12 @@ public class LockControl : MonoBehaviour
                 Debug.Log($"wheel5: result[4] = {result[4]}, number = {number}");
                 break;
         }
-        
+
         if (result[0] == correctCombination[0] && result[1] == correctCombination[1] && result[2] == correctCombination[2] && result[3] == correctCombination[3] && result[4] == correctCombination[4])
         {
             Debug.Log("Opened!");
-        }
+            Rotacion = true;
+        }    
     }
 
     private void OnDestroy()
