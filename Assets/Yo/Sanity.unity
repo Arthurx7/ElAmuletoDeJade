@@ -1487,9 +1487,9 @@ GameObject:
   - component: {fileID: 4459864849504863245}
   - component: {fileID: 4459864849504863244}
   - component: {fileID: 4459864849504863240}
+  - component: {fileID: 4459864849504863249}
   - component: {fileID: 4459864849504863241}
   - component: {fileID: 4459864849504863248}
-  - component: {fileID: 4459864849504863249}
   m_Layer: 0
   m_Name: FirstPersonController
   m_TagString: Player
@@ -1678,12 +1678,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4459864849504863235}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8deba67c7e27354d97a014954ae9d2b, type: 3}
+  m_Script: {fileID: 11500000, guid: c38bfe532dce1944c9ab9ddff16d8fd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxSanity: 100
-  currentSanity: 100
-  sanityBar: {fileID: 329195196}
+  currentSanity: 0
+  sanityBar: {fileID: 0}
   sanityEffects: {fileID: 4459864849504863249}
 --- !u!114 &4459864849504863249
 MonoBehaviour:
@@ -1694,12 +1694,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4459864849504863235}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d66388d5411a4cd4da5580e6df20edd9, type: 3}
+  m_Script: {fileID: 11500000, guid: a92b737cd5ed866479df393fb60770cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   postProcessVolume: {fileID: 847647362}
-  vignette: {fileID: 0}
-  chromaticAberration: {fileID: 0}
 --- !u!1 &4459864849597475388
 GameObject:
   m_ObjectHideFlags: 0
