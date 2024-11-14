@@ -6,6 +6,8 @@ TagManager:
   tags:
   - MovePlane
   - Ficha
+  - Arma
+  - Fuego
   layers:
   - Default
   - TransparentFX

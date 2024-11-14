@@ -53,7 +53,7 @@ public class ZombieAI : MonoBehaviour
         }
         else
         {
-            if (Vector3.Distance(transform.position, target.transform.position) > 2 && !atacando)
+            if (Vector3.Distance(transform.position, target.transform.position) > 1.3 && !atacando)
             {
                 var lookPos = target.transform.position - transform.position;
                 lookPos.y = 0;
@@ -64,7 +64,7 @@ public class ZombieAI : MonoBehaviour
                 transform.Translate(Vector3.forward * 2 * Time.deltaTime);
                 animator.SetBool("Attack", false);
             }
-            else
+            else if ((Vector3.Distance(transform.position, target.transform.position) <= 1.3))
             {
                 animator.SetBool("Walk", false);
                 animator.SetBool("Run", false);
