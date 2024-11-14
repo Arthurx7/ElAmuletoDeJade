@@ -1,24 +1,34 @@
 using UnityEngine;
 
-public class OptionsMenu : MonoBehaviour
+public class MenuController : MonoBehaviour
 {
-    public GameObject optionsPanel; // Asigna el panel desde la jerarquía
+    public GameObject optionsPanel;    // Panel principal de opciones
+    public GameObject helpPanel;       // Panel de ayuda
 
+    // Método para abrir el menú de opciones desde la interfaz principal
     public void OpenOptionsMenu()
     {
-        // Activa el panel de opciones
-        optionsPanel.SetActive(true);
-
-        // Deshabilita los elementos detrás
-        Time.timeScale = 0f; // Esto se usa comúnmente para pausar el juego
+        optionsPanel.SetActive(true);  // Activa el panel de opciones
+        helpPanel.SetActive(false);    // Asegúrate de que el panel de ayuda esté desactivado
     }
 
+    // Método para cerrar el menú de opciones y regresar a la interfaz principal
     public void CloseOptionsMenu()
     {
-        // Cierra el panel de opciones
-        optionsPanel.SetActive(false);
+        optionsPanel.SetActive(false); // Desactiva el panel de opciones
+    }
 
-        // Reactiva los elementos detrás
-        Time.timeScale = 1f; // Esto restaura la escala de tiempo al valor normal
+    // Método para abrir el panel de ayuda desde el menú de opciones
+    public void OpenHelpPanel()
+    {
+        optionsPanel.SetActive(false); // Desactiva el panel de opciones
+        helpPanel.SetActive(true);     // Activa el panel de ayuda
+    }
+
+    // Método para regresar al menú de opciones desde el panel de ayuda
+    public void BackToOptionsMenu()
+    {
+        helpPanel.SetActive(false);    // Desactiva el panel de ayuda
+        optionsPanel.SetActive(true);  // Reactiva el panel de opciones
     }
 }
