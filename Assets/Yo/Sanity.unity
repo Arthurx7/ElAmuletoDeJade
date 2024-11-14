@@ -155,6 +155,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sanityLoss: 20
+  prefabToSpawn: {fileID: 100004, guid: a9ad445cb02a11d428f39b0995d05478, type: 3}
+  moveDuration: 1
+  playerCamera: {fileID: 4459864850894171799}
+  distanceFromCamera: 4
 --- !u!65 &16905643
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -364,6 +368,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sanityLoss: 20
+  prefabToSpawn: {fileID: 100004, guid: a9ad445cb02a11d428f39b0995d05478, type: 3}
+  moveDuration: 1
+  playerCamera: {fileID: 4459864850894171799}
+  distanceFromCamera: 4
 --- !u!65 &498015552
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -519,6 +527,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sanityLoss: 20
+  prefabToSpawn: {fileID: 100004, guid: a9ad445cb02a11d428f39b0995d05478, type: 3}
+  moveDuration: 1
+  playerCamera: {fileID: 4459864850894171799}
+  distanceFromCamera: 4
 --- !u!65 &803350267
 BoxCollider:
   m_ObjectHideFlags: 0
