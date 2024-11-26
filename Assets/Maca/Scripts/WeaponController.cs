@@ -1,7 +1,9 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI; // Para imágenes del canvas
-using TMPro; // Para TextMesh Pro
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.EventSystems; // Importa EventSystems para detectar interacciones con la UI
+using System.Collections;
+using DialogueEditor;
 
 public class WeaponController : MonoBehaviour
 {
@@ -10,32 +12,39 @@ public class WeaponController : MonoBehaviour
 
     public AudioSource audioSource;
     public AudioClip shootSound;
-    public AudioClip shortReloadSound; // Sonido corto de recarga tras cada disparo
-    public AudioClip fullReloadSound;  // Sonido completo de recarga al recargar todas las balas
+    public AudioClip shortReloadSound;
+    public AudioClip fullReloadSound;
 
-    public int maxBullets = 6; // Máximo de balas en el tambor
+    public int maxBullets = 6;
     private int currentBullets;
 
-    public float fullReloadTime = 2f; // Tiempo para recargar completamente
-    public float shortReloadTime = 0.5f; // Tiempo de recarga tras cada disparo
-    public float fireRate = 3f; // Delay entre disparos en segundos
+    public float fullReloadTime = 2f;
+    public float shortReloadTime = 0.5f;
+    public float fireRate = 3f;
 
     private bool isReloading = false;
-    private bool canShoot = true; // Controla si se puede disparar
+    private bool canShoot = true;
 
-    public Image[] bulletImages; // Arreglo de imágenes de balas en el canvas
-    public TMP_Text reloadText; // Texto de TextMesh Pro para mostrar "Presiona 'R' para recargar"
+    public Image[] bulletImages;
+    public TMP_Text reloadText;
 
     void Start()
     {
-        currentBullets = maxBullets; // Comienza con todas las balas cargadas
-        reloadText.gameObject.SetActive(false); // Oculta el texto al iniciar
-        UpdateBulletImages(); // Asegura que las imágenes coincidan con las balas actuales
+        currentBullets = maxBullets;
+        reloadText.gameObject.SetActive(false);
+        UpdateBulletImages();
     }
 
     void Update()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        // Detener la lógica del arma si la conversación está activa
+        if (ConversationManager.Instance.IsConversationActive) return;
+
+        // Si el cursor está desbloqueado (por ejemplo, por la interfaz), no proceses disparos
+        if (Cursor.lockState == CursorLockMode.None) return;
+
+        // Si el cursor está sobre la UI, no proceses disparos
+        if (EventSystem.current.IsPointerOverGameObject()) return;
 
         // Detectar disparo con clic izquierdo (Mouse0)
         if (Input.GetKeyDown(KeyCode.Mouse0) && canShoot && !isReloading)
@@ -47,7 +56,7 @@ public class WeaponController : MonoBehaviour
             else
             {
                 Debug.Log("Recarga el arma, no hay balas");
-                ShowReloadText(); // Mostrar el texto cuando no haya balas
+                ShowReloadText();
             }
         }
 
@@ -60,90 +69,88 @@ public class WeaponController : MonoBehaviour
 
     void Shoot()
     {
-        canShoot = false; // Impedir que dispare hasta que pase el tiempo del fireRate
-        InstantiateBullet();
-        currentBullets--; // Disminuir una bala cada vez que se dispara
+        canShoot = false;
 
-        UpdateBulletImages(); // Actualizar las imágenes de las balas
+        // Raycast desde el centro de la cámara
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        Vector3 shootDirection;
 
-        audioSource.PlayOneShot(shootSound); // Sonido del disparo
-        StartCoroutine(ShortReload()); // Sonido corto de recarga tras cada disparo
-        StartCoroutine(ShootingCooldown()); // Delay entre disparos
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            shootDirection = (hit.point - shootSpawn.position).normalized;
+        }
+        else
+        {
+            shootDirection = Camera.main.transform.forward;
+        }
 
-        // Mostrar el texto inmediatamente si las balas llegan a 0
+        InstantiateBullet(shootDirection);
+        currentBullets--;
+        UpdateBulletImages();
+        audioSource.PlayOneShot(shootSound);
+        StartCoroutine(ShortReload());
+        StartCoroutine(ShootingCooldown());
+
         if (currentBullets <= 0)
         {
-            ShowReloadText(); // Mostrar el texto "Presiona 'R' para recargar"
+            ShowReloadText();
         }
     }
 
-    private void InstantiateBullet()
+    private void InstantiateBullet(Vector3 direction)
     {
-        Instantiate(bulletPrefab, shootSpawn.position, shootSpawn.rotation);
+        GameObject bullet = Instantiate(bulletPrefab, shootSpawn.position, Quaternion.LookRotation(direction));
+        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+
+        if (bulletRb != null)
+        {
+            bulletRb.velocity = direction * 100f;
+        }
     }
 
-    // Recarga corta tras cada disparo
     IEnumerator ShortReload()
     {
         isReloading = true;
-        audioSource.PlayOneShot(shortReloadSound); // Sonido corto de recarga
-
-        yield return new WaitForSeconds(shortReloadTime); // Espera el tiempo corto de recarga
-
+        audioSource.PlayOneShot(shortReloadSound);
+        yield return new WaitForSeconds(shortReloadTime);
         isReloading = false;
     }
 
-    // Recarga completa cuando se presiona 'R'
     IEnumerator FullReload()
     {
         isReloading = true;
-        HideReloadText(); // Ocultar el texto de recarga
-        audioSource.PlayOneShot(fullReloadSound); // Sonido largo de recarga
-
+        HideReloadText();
+        audioSource.PlayOneShot(fullReloadSound);
         Debug.Log("Recargando el arma");
-
-        yield return new WaitForSeconds(fullReloadTime); // Tiempo de recarga completa
-
-        currentBullets = maxBullets; // Recargar todas las balas
-        UpdateBulletImages(); // Reactivar todas las imágenes de balas
+        yield return new WaitForSeconds(fullReloadTime);
+        currentBullets = maxBullets;
+        UpdateBulletImages();
         isReloading = false;
-
         Debug.Log("Arma recargada");
     }
 
-    // Cooldown entre disparos
     IEnumerator ShootingCooldown()
     {
-        yield return new WaitForSeconds(fireRate); // Esperar el tiempo definido en fireRate
-        canShoot = true; // Permitir disparar de nuevo
+        yield return new WaitForSeconds(fireRate);
+        canShoot = true;
     }
 
-    // Actualiza las imágenes del canvas para que coincidan con las balas restantes
     private void UpdateBulletImages()
     {
         for (int i = 0; i < bulletImages.Length; i++)
         {
-            if (i < currentBullets)
-            {
-                bulletImages[i].enabled = true; // Mostrar la imagen
-            }
-            else
-            {
-                bulletImages[i].enabled = false; // Ocultar la imagen
-            }
+            bulletImages[i].enabled = i < currentBullets;
         }
     }
 
-    // Mostrar el texto de recarga
     private void ShowReloadText()
     {
-        reloadText.gameObject.SetActive(true); // Activa el texto en el canvas
-        reloadText.text = "Presiona 'R' para recargar"; // Actualiza el texto (si es necesario)
+        reloadText.gameObject.SetActive(true);
+        reloadText.text = "Presiona 'R' para recargar";
     }
 
-    // Ocultar el texto de recarga
     private void HideReloadText()
     {
-        reloadText.gameObject.SetActive(false); // Desactiva el texto
+        reloadText.gameObject.SetActive(false);
     }
 }

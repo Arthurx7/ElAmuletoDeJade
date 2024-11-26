@@ -16,9 +16,9 @@ public class ConversationActivate : MonoBehaviour
                 // Iniciar la conversación
                 ConversationManager.Instance.StartConversation(myconversation);
 
-                // Activar el cursor
-                Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
-                Cursor.visible = true; // Muestra el cursor
+                // Desbloquear y mostrar el cursor
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
         }
     }
@@ -28,9 +28,9 @@ public class ConversationActivate : MonoBehaviour
         // Comprobar si la conversación ha terminado
         if (!ConversationManager.Instance.IsConversationActive)
         {
-            // Desactivar el cursor cuando la conversación termine
-            Cursor.lockState = CursorLockMode.Locked; // Bloquea el cursor
-            Cursor.visible = false; // Oculta el cursor
+            // Bloquear y ocultar el cursor cuando la conversación termine
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 }

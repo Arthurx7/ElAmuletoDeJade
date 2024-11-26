@@ -8,6 +8,7 @@ TagManager:
   - Ficha
   - Arma
   - Fuego
+  - Bullet
   layers:
   - Default
   - TransparentFX
