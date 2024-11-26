@@ -12,7 +12,7 @@ public class BossAI : MonoBehaviour
     public GameObject target;
     public bool atacando;
 
-    public float alturaVuelo = 5f; // Altura a la que se mantiene volando
+    public float alturaVuelo = 11.42f; // Altura a la que se mantiene volando
     public float alturaVueloObjetivo; // Altura objetivo de vuelo que varía
     public float velocidadVuelo = 2f; // Velocidad de movimiento horizontal en el aire
     public float velocidadCambioAltura = 1f; // Velocidad para cambiar de altura
@@ -51,13 +51,13 @@ public class BossAI : MonoBehaviour
     public void Compartamiento_Enemigo()
     {
         // Cambia el rango de altura basado en si el enemigo está atacando o no
-        float maxAltura = atacando ? 10f : 18f;
+        float maxAltura = atacando ? 11.42f : 22f;
 
         // Controla la altura del enemigo con el rango ajustado
         cronometroCambioAltura += Time.deltaTime;
         if (cronometroCambioAltura >= tiempoParaCambioAltura)
         {
-            alturaVueloObjetivo = Random.Range(0f, maxAltura); // Define el nuevo límite de altura
+            alturaVueloObjetivo = Random.Range(11.42f, maxAltura); // Define el nuevo límite de altura
             cronometroCambioAltura = 0;
             Debug.Log($"Nueva altura de vuelo objetivo: {alturaVueloObjetivo}");
         }

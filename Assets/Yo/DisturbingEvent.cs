@@ -1,35 +1,87 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DisturbingEvent : MonoBehaviour
 {
-    public float sanityLoss = 50f; // Cuánto se pierde por presenciar el evento
-    private bool eventTriggered = false; // Para asegurar que el evento no se repita
-    public GameObject prefabToSpawn; // El prefab que se generará y se moverá
+    public float sanityLoss = 50f; // Cantidad de cordura que se pierde por evento
+    public float sanityRegenAmount = 2f; // Cantidad que se regenera por segundo
+    public float sanityRegenDelay = 3f; // Tiempo en segundos antes de comenzar la regeneración
+
+    private float timeSinceLastEvent = 0f; // Tiempo desde el último evento perturbador
+
+    public GameObject prefabToSpawn; // Prefab que se generará y moverá
     public float moveDuration = 1f; // Duración del movimiento
-    public Camera playerCamera; // La cámara del jugador
-    public float distanceFromCamera = 2f; // Distancia del objeto frente a la cámara
+    public Camera playerCamera; // Cámara del jugador
+    public float distanceFromCamera = 2f; // Distancia frente a la cámara
+
+    private PlayerSanity playerSanity; // Referencia al script de cordura del jugador
+
+    private void Start()
+    {
+        // Buscar automáticamente el script de PlayerSanity si no se asigna manualmente
+        playerSanity = FindObjectOfType<PlayerSanity>();
+
+        if (playerSanity == null)
+        {
+            Debug.LogError("No se encontró el componente PlayerSanity en la escena.");
+        }
+    }
+
+    private void Update()
+    {
+        // Incrementa el tiempo desde el último evento
+        timeSinceLastEvent += Time.deltaTime;
+
+        // Comienza la regeneración de cordura si han pasado más de 3 segundos sin eventos
+        if (timeSinceLastEvent >= sanityRegenDelay && playerSanity != null && playerSanity.currentSanity < playerSanity.maxSanity)
+        {
+            RegenerateSanity(sanityRegenAmount * Time.deltaTime);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !eventTriggered)
+        if (other.CompareTag("Player"))
         {
             // Llamar a la función de pérdida de cordura
-            PlayerSanity playerSanity = other.GetComponent<PlayerSanity>();
             if (playerSanity != null)
             {
                 playerSanity.LoseSanity(sanityLoss);
-                eventTriggered = true; // Asegurarse de que no se active de nuevo
-
-                // Instanciar el prefab y moverlo en la cámara
-                if (prefabToSpawn != null && playerCamera != null)
-                {
-                    // Crear el prefab y colocarlo al frente de la cámara
-                    GameObject spawnedObject = Instantiate(prefabToSpawn);
-                    StartCoroutine(MoveAndDestroyObject(spawnedObject));
-                }
             }
+
+            timeSinceLastEvent = 0f; // Reinicia el temporizador
+
+            // Instanciar el prefab y moverlo en la cámara
+            if (prefabToSpawn != null && playerCamera != null)
+            {
+                GameObject spawnedObject = Instantiate(prefabToSpawn);
+                StartCoroutine(MoveAndDestroyObject(spawnedObject));
+            }
+        }
+    }
+
+    private void RegenerateSanity(float amount)
+    {
+        // Recuperar cordura usando el método de PlayerSanity
+        if (playerSanity != null)
+        {
+            playerSanity.currentSanity += amount;
+            playerSanity.currentSanity = Mathf.Clamp(playerSanity.currentSanity, 0, playerSanity.maxSanity);
+
+            // Actualizar la barra de cordura
+            if (playerSanity.sanityBar != null)
+            {
+                playerSanity.sanityBar.value = playerSanity.currentSanity / playerSanity.maxSanity;
+            }
+
+            // Aplicar efectos de cordura
+            if (playerSanity.sanityEffects != null)
+            {
+                float sanityPercentage = playerSanity.currentSanity / playerSanity.maxSanity;
+                playerSanity.sanityEffects.ApplySanityEffects(sanityPercentage);
+            }
+
+            Debug.Log($"Regenerando cordura: {amount}. Cordura actual: {playerSanity.currentSanity}");
         }
     }
 

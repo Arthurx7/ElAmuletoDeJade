@@ -21,32 +21,42 @@ public class WeaponSwitchController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ActivateHands();
+            UnlockCursor(); // Desbloquear el cursor al activar las manos
         }
 
         // Detectar la tecla 2 para cambiar al arma
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             ActivateWeapon();
+            LockCursor(); // Bloquear el cursor al activar el arma
         }
     }
 
-    // Método para activar las manos
     private void ActivateHands()
     {
-        manos.SetActive(true); // Activar las manos
-        canvasManos.SetActive(true); // Activar el Canvas de las manos
-
-        arma.SetActive(false); // Desactivar el arma
-        canvasArma.SetActive(false); // Desactivar el Canvas del arma
+        manos.SetActive(true);
+        canvasManos.SetActive(true);
+        arma.SetActive(false);
+        canvasArma.SetActive(false);
     }
 
-    // Método para activar el arma
     private void ActivateWeapon()
     {
-        arma.SetActive(true); // Activar el arma
-        canvasArma.SetActive(true); // Activar el Canvas del arma
+        arma.SetActive(true);
+        canvasArma.SetActive(true);
+        manos.SetActive(false);
+        canvasManos.SetActive(false);
+    }
 
-        manos.SetActive(false); // Desactivar las manos
-        canvasManos.SetActive(false); // Desactivar el Canvas de las manos
+    private void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    private void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
