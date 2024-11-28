@@ -13,7 +13,7 @@ public class RotatePadlock : MonoBehaviour
     void Start()
     {
         coroutineAllowed = true;
-        numberShown = 0;
+        numberShown = 5;
         
     }
 
