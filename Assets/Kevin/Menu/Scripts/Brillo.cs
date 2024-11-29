@@ -16,25 +16,29 @@ public class Brillo : MonoBehaviour
 
     void Start()
     {
-        // Obtén el componente LiftGammaGain del volumen HDRP
+        // Cargar el valor guardado de brillo desde PlayerPrefs
+        sliderValue = PlayerPrefs.GetFloat("Brillo", 1f); // Valor por defecto: 1f
+
+        // Configurar el slider con el valor cargado
+        if (gammaSlider != null)
+        {
+            gammaSlider.value = sliderValue; // Establecer el valor inicial del slider
+            gammaSlider.onValueChanged.AddListener(ChangeSlider); // Agregar el listener
+        }
+
+        // Obtener el componente LiftGammaGain del volumen HDRP
         if (volume.profile.TryGet<LiftGammaGain>(out gamma))
         {
-            // Si el slider está asignado, agregar el listener
-            if (gammaSlider != null)
-            {
-                gammaSlider.onValueChanged.AddListener(ChangeSlider);
-                sliderValue = gammaSlider.value; // Establece el valor inicial del slider
-                UpdateGamma(sliderValue);  // Establece el valor inicial del gamma
-            }
+            UpdateGamma(sliderValue); // Establecer el valor inicial del gamma
         }
     }
 
     // Función que cambia el valor del slider y lo pasa a la actualización del gamma
     public void ChangeSlider(float value)
     {
-        sliderValue = Mathf.Clamp(value, -1f, 5f);  // Asegura que el valor esté entre 0.1 y 2
-        Debug.Log("Slider Value Changed: " + sliderValue);  // Imprime el valor del slider
-        UpdateGamma(sliderValue);  // Llama a la función que actualiza el gamma con el nuevo valor
+        sliderValue = Mathf.Clamp(value, -1f, 5f); // Asegura que el valor esté entre -1 y 5
+        PlayerPrefs.SetFloat("Brillo", sliderValue); // Guardar el valor del slider
+        UpdateGamma(sliderValue); // Actualiza el gamma
     }
 
     // Método que actualiza el gamma en tiempo real a través del slider
@@ -42,10 +46,8 @@ public class Brillo : MonoBehaviour
     {
         if (gamma != null)
         {
-            // Ajustar el valor de gamma (en el rango de 0.1 a 2)
-            // Modificando solo el cuarto valor del Vector4 (gamma)
-            gamma.gamma.value = new Vector4(0, 0, 0, value);  // Ajusta el gamma para R, G y B
-            Debug.Log("Gamma Updated: " + value);  // Verifica si el gamma se actualizó
+            // Ajustar el valor de gamma (solo el cuarto componente del Vector4)
+            gamma.gamma.value = new Vector4(0, 0, 0, value); // Ajusta el gamma para R, G y B
         }
     }
 }
