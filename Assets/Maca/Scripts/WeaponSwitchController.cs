@@ -6,8 +6,10 @@ public class WeaponSwitchController : MonoBehaviour
 {
     public GameObject arma; // Referencia al GameObject del arma
     public GameObject canvasArma; // Referencia al Canvas del arma
+    public GameObject canvasArma2; // Referencia al Canvas del arma
     public GameObject manos; // Referencia al GameObject de las manos
     public GameObject canvasManos; // Referencia al Canvas de las manos
+    public GameObject canvasManos2; // Referencia al Canvas de las manos
 
     void Start()
     {
@@ -36,16 +38,20 @@ public class WeaponSwitchController : MonoBehaviour
     {
         manos.SetActive(true);
         canvasManos.SetActive(true);
+        canvasManos2.SetActive(false);
         arma.SetActive(false);
         canvasArma.SetActive(false);
+        canvasArma2.SetActive(true);
     }
 
     private void ActivateWeapon()
     {
         arma.SetActive(true);
         canvasArma.SetActive(true);
+        canvasArma2.SetActive(false);
         manos.SetActive(false);
         canvasManos.SetActive(false);
+        canvasManos2.SetActive(true);
     }
 
     private void LockCursor()
