@@ -12,6 +12,7 @@ TagManager:
   - Enemigo
   - DisturbingEvent
   - PositiveEvent
+  - opciones
   layers:
   - Default
   - TransparentFX
