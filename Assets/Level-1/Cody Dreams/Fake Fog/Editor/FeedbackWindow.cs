@@ -14,22 +14,21 @@ namespace CodyDreams
             private static FeedbackWindow window;
             private static bool showOnStartup;
 
-            // Static constructor for initializing static members
+            // Static constructor for initializing static members (removed logic here)
             static FeedbackWindow()
             {
-                // Read preference immediately upon load
+                // You can leave this empty or perform other static initializations here
+            }
+
+            private void OnEnable()
+            {
+                // Read the preference when the window is enabled
                 showOnStartup = EditorPrefs.GetBool("ShowFeedbackWindowOnStartup", true);
                 // Show the feedback window on startup based on preference
                 if (showOnStartup)
                 {
                     ShowWindow();
                 }
-            }
-
-            private void OnEnable()
-            {
-                // Ensure the preference is up-to-date
-                showOnStartup = EditorPrefs.GetBool("ShowFeedbackWindowOnStartup", true);
             }
 
             [MenuItem("Window/Feedback Window")]
