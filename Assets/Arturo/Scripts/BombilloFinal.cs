@@ -4,31 +4,35 @@ public class BombilloFinalController : MonoBehaviour
 {
     public Bombillo bombillo;          // Referencia al script del bombillo que controla la energía
     public GameObject[] lucesDeLaCasa; // Luces de la casa que se activarán
+    public GameObject[] objetosDeSusto; // Objetos de susto que se activarán/desactivarán
     private bool lucesEncendidas = false;
 
     void Update()
     {
-        // Revisa continuamente el estado del bombillo
         if (bombillo.ObtenerEstadoCarga() && !lucesEncendidas)
         {
-            // Si el bombillo está encendido y las luces aún no están activadas, activarlas
-            ActivarLucesCasa(true);
+            ConfigurarEstadoCasa(true, false);
             lucesEncendidas = true;
         }
         else if (!bombillo.ObtenerEstadoCarga() && lucesEncendidas)
         {
-            // Si el bombillo está apagado y las luces están encendidas, apagarlas
-            ActivarLucesCasa(false);
+            ConfigurarEstadoCasa(false, true);
             lucesEncendidas = false;
         }
     }
 
-    private void ActivarLucesCasa(bool activar)
+    private void ConfigurarEstadoCasa(bool lucesEstado, bool sustosEstado)
     {
-        // Activa o desactiva todas las luces de la casa
+        // Configura las luces de la casa
         foreach (GameObject luzCasa in lucesDeLaCasa)
         {
-            luzCasa.SetActive(activar);
+            luzCasa.SetActive(lucesEstado);
+        }
+
+        // Configura los sustos de la casa
+        foreach (GameObject objetoSusto in objetosDeSusto)
+        {
+            objetoSusto.SetActive(sustosEstado);
         }
     }
 }

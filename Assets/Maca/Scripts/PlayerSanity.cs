@@ -36,6 +36,17 @@ public class PlayerSanity : MonoBehaviour
         CheckSanityEffects();
     }
 
+    public void GainSanity(float amount)
+    {
+        currentSanity += amount;
+        currentSanity = Mathf.Clamp(currentSanity, 0, maxSanity);
+        Debug.Log($"Ganaste {amount} de cordura. Cordura actual: {currentSanity}");
+        // Actualizar barra de cordura y efectos si corresponde
+        if (sanityBar != null) sanityBar.value = currentSanity / maxSanity;
+        if (sanityEffects != null) sanityEffects.ApplySanityEffects(currentSanity / maxSanity);
+    }
+
+
     private void CheckSanityEffects()
     {
         if (currentSanity <= 0)
