@@ -9,6 +9,10 @@ TagManager:
   - Arma
   - Fuego
   - Bullet
+  - Enemigo
+  - DisturbingEvent
+  - PositiveEvent
+  - opciones
   layers:
   - Default
   - TransparentFX

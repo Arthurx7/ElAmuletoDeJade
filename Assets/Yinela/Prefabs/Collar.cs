@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Collar : MonoBehaviour
 {
-    public GameObject gameObjectToActivate;  // El GameObject que deseas activar
+    public GameObject gameObjectToActivate;
+    public GameObject gameObjectToActivate2;// El GameObject que deseas activar
     public GameObject gameObjectToDeactivate; // El GameObject que deseas desactivar
 
     private bool isInTriggerZone = false; // Para saber si el jugador está dentro del área del trigger
@@ -36,6 +37,7 @@ public class Collar : MonoBehaviour
             if (gameObjectToActivate != null)
             {
                 gameObjectToActivate.SetActive(true);
+                gameObjectToActivate2.SetActive(true);
             }
 
             if (gameObjectToDeactivate != null)
