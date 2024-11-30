@@ -39,7 +39,7 @@ public class WeaponController : MonoBehaviour
     void Update()
     {
         if (ConversationManager.Instance.IsConversationActive) return;
-        if (Cursor.lockState == CursorLockMode.None) return;
+        //if (Cursor.lockState == CursorLockMode.None) return;
         if (EventSystem.current.IsPointerOverGameObject()) return;
 
         transform.localPosition = Vector3.Lerp(transform.localPosition, initialPosition, Time.deltaTime * 5f);

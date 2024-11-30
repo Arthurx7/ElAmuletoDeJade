@@ -13,7 +13,7 @@ public class WeaponSwitchController : MonoBehaviour
 
     void Start()
     {
-        // Asegurarnos de que al iniciar solo las manos estén activas
+        // Asegurarnos de que al iniciar solo las manos estï¿½n activas
         ActivateHands();
     }
 
@@ -23,14 +23,14 @@ public class WeaponSwitchController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ActivateHands();
-            UnlockCursor(); // Desbloquear el cursor al activar las manos
+           // UnlockCursor(); // Desbloquear el cursor al activar las manos
         }
 
         // Detectar la tecla 2 para cambiar al arma
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             ActivateWeapon();
-            LockCursor(); // Bloquear el cursor al activar el arma
+           // LockCursor(); // Bloquear el cursor al activar el arma
         }
     }
 
