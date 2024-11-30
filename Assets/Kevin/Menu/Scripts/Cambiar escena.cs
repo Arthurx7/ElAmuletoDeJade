@@ -6,15 +6,16 @@ using UnityEngine.SceneManagement;
 public class Cambiarescena : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    public void CloseApplication()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Verifica si estamos en el editor de Unity
+#if UNITY_EDITOR
+        // Si estamos en el editor, simplemente detenemos la simulación
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+            // Si estamos en una compilación, cerramos la aplicación
+            Application.Quit();
+#endif
     }
 
     public void CambiarEscena()

@@ -31845,6 +31845,7 @@ GameObject:
   - component: {fileID: 964213215}
   - component: {fileID: 964213214}
   - component: {fileID: 964213217}
+  - component: {fileID: 964213218}
   m_Layer: 5
   m_Name: Salir
   m_TagString: Untagged
@@ -31915,7 +31916,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 964213215}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 964213218}
+        m_TargetAssemblyTypeName: Cambiarescena, Assembly-CSharp
+        m_MethodName: CloseApplication
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &964213215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31968,6 +31981,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonText: {fileID: 1397395922}
   hoverColor: {r: 0.54901963, g: 0, b: 0, a: 1}
+--- !u!114 &964213218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964213212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34a150e534834248909a2542d554d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &968173657
 GameObject:
   m_ObjectHideFlags: 0
@@ -46701,7 +46726,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fadc7d116fa5c6a48ac3a26e43533fdf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 489b601b35c74e441a4414a12dd13ab0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -48096,6 +48121,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1232400305}
+  - {fileID: 2044951862}
   - {fileID: 1147299538}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50616,12 +50642,12 @@ Transform:
   m_GameObject: {fileID: 2044951861}
   serializedVersion: 2
   m_LocalRotation: {x: -0.015344931, y: 0.58969563, z: -0.00687952, w: 0.8074505}
-  m_LocalPosition: {x: 9.9, y: -30.6, z: 36.3}
-  m_LocalScale: {x: 0.057742614, y: 0.05774262, z: 0.057742618}
+  m_LocalPosition: {x: 9.9, y: -31.6, z: 46.3}
+  m_LocalScale: {x: 0.057742614, y: 0.05774263, z: 0.057742625}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1489421329}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1845413173}
   m_LocalEulerAnglesHint: {x: 0, y: 109.4, z: 0}
 --- !u!1001 &2055231812
 PrefabInstance:
@@ -52919,4 +52945,3 @@ SceneRoots:
   - {fileID: 529830512}
   - {fileID: 1531776930}
   - {fileID: 415696708}
-  - {fileID: 2044951862}
