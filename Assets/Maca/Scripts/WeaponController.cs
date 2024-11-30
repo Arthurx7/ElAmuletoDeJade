@@ -25,14 +25,13 @@ public class WeaponController : MonoBehaviour
     private bool isReloading = false;
     private bool canShoot = true;
 
-    public Image[] bulletImages;
-    public TMP_Text reloadText;
+    
 
     void Start()
     {
         currentBullets = maxBullets;
-        reloadText.gameObject.SetActive(false);
-        UpdateBulletImages();
+        
+        
     }
 
     void Update()
@@ -56,7 +55,7 @@ public class WeaponController : MonoBehaviour
             else
             {
                 Debug.Log("Recarga el arma, no hay balas");
-                ShowReloadText();
+                
             }
         }
 
@@ -86,15 +85,12 @@ public class WeaponController : MonoBehaviour
 
         InstantiateBullet(shootDirection);
         currentBullets--;
-        UpdateBulletImages();
+        
         audioSource.PlayOneShot(shootSound);
         StartCoroutine(ShortReload());
         StartCoroutine(ShootingCooldown());
 
-        if (currentBullets <= 0)
-        {
-            ShowReloadText();
-        }
+        
     }
 
     private void InstantiateBullet(Vector3 direction)
@@ -119,12 +115,12 @@ public class WeaponController : MonoBehaviour
     IEnumerator FullReload()
     {
         isReloading = true;
-        HideReloadText();
+        
         audioSource.PlayOneShot(fullReloadSound);
         Debug.Log("Recargando el arma");
         yield return new WaitForSeconds(fullReloadTime);
         currentBullets = maxBullets;
-        UpdateBulletImages();
+        
         isReloading = false;
         Debug.Log("Arma recargada");
     }
@@ -135,22 +131,5 @@ public class WeaponController : MonoBehaviour
         canShoot = true;
     }
 
-    private void UpdateBulletImages()
-    {
-        for (int i = 0; i < bulletImages.Length; i++)
-        {
-            bulletImages[i].enabled = i < currentBullets;
-        }
-    }
-
-    private void ShowReloadText()
-    {
-        reloadText.gameObject.SetActive(true);
-        reloadText.text = "Presiona 'R' para recargar";
-    }
-
-    private void HideReloadText()
-    {
-        reloadText.gameObject.SetActive(false);
-    }
+    
 }
