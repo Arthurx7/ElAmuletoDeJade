@@ -13,19 +13,19 @@ public class BossAI : MonoBehaviour
     public bool atacando;
 
     public float alturaVuelo = 11.42f; // Altura a la que se mantiene volando
-    public float alturaVueloObjetivo; // Altura objetivo de vuelo que varía
+    public float alturaVueloObjetivo; // Altura objetivo de vuelo que varï¿½a
     public float velocidadVuelo = 2f; // Velocidad de movimiento horizontal en el aire
     public float velocidadCambioAltura = 1f; // Velocidad para cambiar de altura
-    public float radioOscilacion = 5f; // Radio de la oscilación circular alrededor del jugador
-    public float frecuenciaOrbital = 0.5f; // Frecuencia de la oscilación alrededor del jugador
+    public float radioOscilacion = 5f; // Radio de la oscilaciï¿½n circular alrededor del jugador
+    public float frecuenciaOrbital = 0.5f; // Frecuencia de la oscilaciï¿½n alrededor del jugador
     public GameObject fuegoAtaque; // GameObject de fuego dentro del prefab del Boss
 
     public float cooldownAtaque = 3f; // Tiempo de cooldown entre ataques de fuego
-    private float tiempoUltimoAtaque = 0f; // Tiempo registrado del último ataque
+    private float tiempoUltimoAtaque = 0f; // Tiempo registrado del ï¿½ltimo ataque
 
-    private float cronometroCambioAltura; // Cronómetro para cambiar la altura objetivo
+    private float cronometroCambioAltura; // Cronï¿½metro para cambiar la altura objetivo
     private float tiempoParaCambioAltura = 5f; // Intervalo de tiempo para cambiar de altura objetivo
-    private float tiempoOscilacion; // Tiempo acumulado para la oscilación
+    private float tiempoOscilacion; // Tiempo acumulado para la oscilaciï¿½n
     private bool enPausa = false;
     private float tiempoPausa = 0f;
     public float intervaloPausa = 2f;
@@ -36,7 +36,7 @@ public class BossAI : MonoBehaviour
         target = GameObject.Find("FirstPersonController");
         alturaVueloObjetivo = Random.Range(0f, 18f);
 
-        // Asegura que el fuego esté desactivado al iniciar
+        // Asegura que el fuego estï¿½ desactivado al iniciar
         if (fuegoAtaque != null)
         {
             fuegoAtaque.SetActive(false);
@@ -50,14 +50,14 @@ public class BossAI : MonoBehaviour
 
     public void Compartamiento_Enemigo()
     {
-        // Cambia el rango de altura basado en si el enemigo está atacando o no
+        // Cambia el rango de altura basado en si el enemigo estï¿½ atacando o no
         float maxAltura = atacando ? 11.42f : 22f;
 
         // Controla la altura del enemigo con el rango ajustado
         cronometroCambioAltura += Time.deltaTime;
         if (cronometroCambioAltura >= tiempoParaCambioAltura)
         {
-            alturaVueloObjetivo = Random.Range(11.42f, maxAltura); // Define el nuevo límite de altura
+            alturaVueloObjetivo = Random.Range(11.42f, maxAltura); // Define el nuevo lï¿½mite de altura
             cronometroCambioAltura = 0;
             Debug.Log($"Nueva altura de vuelo objetivo: {alturaVueloObjetivo}");
         }
@@ -72,7 +72,7 @@ public class BossAI : MonoBehaviour
         {
             animator.SetBool("Attack", false);
             animatorAlas.SetInteger("Mode", 0); // Alas en idle
-            DesactivarFuego(); // Asegura que el fuego esté apagado fuera del rango de ataque
+            DesactivarFuego(); // Asegura que el fuego estï¿½ apagado fuera del rango de ataque
             cronometro += Time.deltaTime;
 
             if (cronometro >= 4)
@@ -100,7 +100,7 @@ public class BossAI : MonoBehaviour
                     transform.Translate(Vector3.forward * velocidadVuelo / 2 * Time.deltaTime);
                     animator.SetBool("Attack", false);
                     animatorAlas.SetInteger("Mode", 1); // Alas en walk
-                    Debug.Log("Enemigo en aire: Volando en dirección aleatoria.");
+                    Debug.Log("Enemigo en aire: Volando en direcciï¿½n aleatoria.");
                     break;
             }
         }
@@ -120,19 +120,19 @@ public class BossAI : MonoBehaviour
                     tiempoOscilacion += Time.deltaTime * frecuenciaOrbital;
                     float angle = tiempoOscilacion;
 
-                    // Calcula la posición objetivo en el círculo alrededor del jugador
+                    // Calcula la posiciï¿½n objetivo en el cï¿½rculo alrededor del jugador
                     Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radioOscilacion;
                     Vector3 posicionOrbital = target.transform.position + offset;
 
-                    // Mueve al enemigo gradualmente hacia la posición orbital sin teletransportarse
+                    // Mueve al enemigo gradualmente hacia la posiciï¿½n orbital sin teletransportarse
                     transform.position = Vector3.MoveTowards(transform.position, new Vector3(posicionOrbital.x, transform.position.y, posicionOrbital.z), velocidadVuelo * Time.deltaTime);
 
-                    // Asegura que el NPC siempre esté mirando al jugador al atacar
+                    // Asegura que el NPC siempre estï¿½ mirando al jugador al atacar
                     var lookPos = target.transform.position - transform.position;
                     lookPos.y = 0;
                     transform.rotation = Quaternion.LookRotation(lookPos);
 
-                    // Controla la pausa después de un intervalo
+                    // Controla la pausa despuï¿½s de un intervalo
                     tiempoPausa += Time.deltaTime;
                     if (tiempoPausa >= intervaloPausa)
                     {
@@ -144,7 +144,7 @@ public class BossAI : MonoBehaviour
                     if (Time.time >= tiempoUltimoAtaque + cooldownAtaque)
                     {
                         ActivarFuego();
-                        tiempoUltimoAtaque = Time.time; // Actualiza el tiempo del último ataque
+                        tiempoUltimoAtaque = Time.time; // Actualiza el tiempo del ï¿½ltimo ataque
                     }
 
                     animator.SetBool("Attack", true);
@@ -154,7 +154,7 @@ public class BossAI : MonoBehaviour
                 }
                 else
                 {
-                    // Pausa en la oscilación
+                    // Pausa en la oscilaciï¿½n
                     tiempoPausa += Time.deltaTime;
                     if (tiempoPausa >= intervaloPausa)
                     {

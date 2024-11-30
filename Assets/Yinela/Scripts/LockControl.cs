@@ -11,9 +11,17 @@ public class LockControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        result = new int[]{0,0,0,0};
-        correctCombination = new int[] {1,2,3,4};
+        result = new int[]{0,0,0};
+        correctCombination = new int[] {6,4,0};
         RotatePadlock.Rotated += CheckResults;
+    }
+
+    void Update()
+    {
+        if(Rotacion)
+        {
+           Destroy(gameObject);
+        }
     }
 
     private void CheckResults(string wheelName, int number)
@@ -35,15 +43,11 @@ public class LockControl : MonoBehaviour
                 Debug.Log($"wheel3: result[2] = {result[2]}, number = {number}");
                 break;
 
-            case "wheel4":
-                result[3] = number;
-                Debug.Log($"wheel4: result[3] = {result[3]}, number = {number}");
-                break;
 
             
         }
 
-        if (result[0] == correctCombination[0] && result[1] == correctCombination[1] && result[2] == correctCombination[2] && result[3] == correctCombination[3] )
+        if (result[0] == correctCombination[0] && result[1] == correctCombination[1] && result[2] == correctCombination[2] )
         {
             Debug.Log("Opened!");
             Rotacion = true;
