@@ -5,30 +5,42 @@ public class DisturbingEvent : MonoBehaviour
 {
     public float sanityLoss = 50f; // Cantidad de cordura que se pierde por evento perturbador
     public float sanityGain = 30f; // Cantidad de cordura que se gana por evento positivo
-    public GameObject prefabToSpawn; // Prefab que se generar· y mover·
-    public float moveDuration = 1f; // DuraciÛn del movimiento
-    public Camera playerCamera; // C·mara del jugador
-    public float distanceFromCamera = 2f; // Distancia frente a la c·mara
+    public GameObject prefabToSpawn; // Prefab que se generar√° y mover√°
+    public float moveDuration = 1f; // Duraci√≥n del movimiento
+    public Camera playerCamera; // C√°mara del jugador
+    public float distanceFromCamera = 2f; // Distancia frente a la c√°mara
+    public AudioSource eventAudioSource; // AudioSource para el evento perturbador
 
     private PlayerSanity playerSanity; // Referencia al script de cordura del jugador
-    private bool hasTriggered = false; // Bandera para controlar si el evento ya ocurriÛ
+    private bool hasTriggered = false; // Bandera para controlar si el evento ya ocurri√≥
 
     private void Start()
     {
         playerSanity = FindObjectOfType<PlayerSanity>();
         if (playerSanity == null)
         {
-            Debug.LogError("No se encontrÛ el componente PlayerSanity en la escena.");
+            Debug.LogError("No se encontr√≥ el componente PlayerSanity en la escena.");
+        }
+
+        if (eventAudioSource == null)
+        {
+            Debug.LogError("No se asign√≥ un AudioSource para el evento.");
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (hasTriggered) return; // Salir si ya se activÛ este evento
+        if (hasTriggered) return; // Salir si ya se activ√≥ este evento
 
         if (other.CompareTag("Player"))
         {
             hasTriggered = true; // Marcar este evento como activado
+
+            // Reproducir el sonido si no se ha reproducido antes
+            if (eventAudioSource != null && !eventAudioSource.isPlaying)
+            {
+                eventAudioSource.Play();
+            }
 
             // Verificar si este objeto es un evento perturbador
             if (gameObject.CompareTag("DisturbingEvent"))
@@ -55,7 +67,7 @@ public class DisturbingEvent : MonoBehaviour
                 }
             }
 
-            // Opcional: Desactivar el collider para evitar interacciones futuras
+            // Desactivar el collider para evitar interacciones futuras
             GetComponent<Collider>().enabled = false;
         }
     }
