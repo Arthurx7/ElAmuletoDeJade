@@ -36410,7 +36410,7 @@ MonoBehaviour:
   moveDuration: 1
   playerCamera: {fileID: 1137457741}
   distanceFromCamera: 4
-  eventAudioSource: {fileID: 0}
+  eventAudioSource: {fileID: 758287023}
 --- !u!82 &758287023
 AudioSource:
   m_ObjectHideFlags: 0
@@ -36422,7 +36422,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b751c38544cd50e42aa576dd094e7625, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.411
   m_Pitch: 1
   Loop: 0
@@ -45206,7 +45206,7 @@ MonoBehaviour:
   moveDuration: 1
   playerCamera: {fileID: 1137457741}
   distanceFromCamera: 4
-  eventAudioSource: {fileID: 0}
+  eventAudioSource: {fileID: 758287023}
 --- !u!65 &1001418179
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -45304,7 +45304,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b751c38544cd50e42aa576dd094e7625, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.411
   m_Pitch: 1
   Loop: 0
@@ -57709,7 +57709,7 @@ MonoBehaviour:
   moveDuration: 1
   playerCamera: {fileID: 1137457741}
   distanceFromCamera: 4
-  eventAudioSource: {fileID: 0}
+  eventAudioSource: {fileID: 758287023}
 --- !u!65 &1177279687
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -57792,7 +57792,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b751c38544cd50e42aa576dd094e7625, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.411
   m_Pitch: 1
   Loop: 0
@@ -74142,7 +74142,7 @@ MonoBehaviour:
   moveDuration: 1
   playerCamera: {fileID: 1137457741}
   distanceFromCamera: 4
-  eventAudioSource: {fileID: 0}
+  eventAudioSource: {fileID: 758287023}
 --- !u!65 &1621382255
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -74240,7 +74240,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b751c38544cd50e42aa576dd094e7625, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.411
   m_Pitch: 1
   Loop: 0

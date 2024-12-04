@@ -2,14 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+
+#if USING_HDRP
+using UnityEngine.Rendering.HighDefinition;
+#elif USING_URP
+using UnityEngine.Rendering.Universal;
+#endif
 
 public class Brillo : MonoBehaviour
 {
     public Volume volume;               // Referencia al Volume global HDRP
-    public Slider gammaSlider;          // Slider que controlará el valor del gamma
+    public Slider gammaSlider;          // Slider que controlarï¿½ el valor del gamma
 
     private LiftGammaGain gamma;        // El componente LiftGammaGain
     private float sliderValue;          // Variable para almacenar el valor del slider
@@ -33,15 +38,15 @@ public class Brillo : MonoBehaviour
         }
     }
 
-    // Función que cambia el valor del slider y lo pasa a la actualización del gamma
+    // Funciï¿½n que cambia el valor del slider y lo pasa a la actualizaciï¿½n del gamma
     public void ChangeSlider(float value)
     {
-        sliderValue = Mathf.Clamp(value, -1f, 5f); // Asegura que el valor esté entre -1 y 5
+        sliderValue = Mathf.Clamp(value, -1f, 5f); // Asegura que el valor estï¿½ entre -1 y 5
         PlayerPrefs.SetFloat("Brillo", sliderValue); // Guardar el valor del slider
         UpdateGamma(sliderValue); // Actualiza el gamma
     }
 
-    // Método que actualiza el gamma en tiempo real a través del slider
+    // Mï¿½todo que actualiza el gamma en tiempo real a travï¿½s del slider
     void UpdateGamma(float value)
     {
         if (gamma != null)
