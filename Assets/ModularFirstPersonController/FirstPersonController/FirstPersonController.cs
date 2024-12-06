@@ -205,7 +205,7 @@ public class FirstPersonController : MonoBehaviour
         #region Camera
 
         // Control camera movement
-        if (cameraCanMove)
+        if (Time.timeScale != 0f && cameraCanMove)
         {
             yaw = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * mouseSensitivity;
 
@@ -219,19 +219,21 @@ public class FirstPersonController : MonoBehaviour
                 pitch += mouseSensitivity * Input.GetAxis("Mouse Y");
             }
 
-            // Clamp pitch between lookAngle
+            // Limita el ángulo de visión en el eje Y
             pitch = Mathf.Clamp(pitch, -maxLookAngle, maxLookAngle);
 
             transform.localEulerAngles = new Vector3(0, yaw, 0);
             playerCamera.transform.localEulerAngles = new Vector3(pitch, 0, 0);
         }
 
+        #endregion Camera
+
         #region Camera Zoom
 
-        if (enableZoom)
+        // Verifica si el juego está pausado
+        if (Time.timeScale != 0f && enableZoom)
         {
-            // Changes isZoomed when key is pressed
-            // Behavior for toogle zoom
+            // Comportamiento de toggle zoom
             if (Input.GetKeyDown(zoomKey) && !holdToZoom && !isSprinting)
             {
                 if (!isZoomed)
@@ -244,8 +246,7 @@ public class FirstPersonController : MonoBehaviour
                 }
             }
 
-            // Changes isZoomed when key is pressed
-            // Behavior for hold to zoom
+            // Comportamiento de hold to zoom
             if (holdToZoom && !isSprinting)
             {
                 if (Input.GetKeyDown(zoomKey))
@@ -258,7 +259,7 @@ public class FirstPersonController : MonoBehaviour
                 }
             }
 
-            // Lerps camera.fieldOfView to allow for a smooth transistion
+            // Transición suave del zoom
             if (isZoomed)
             {
                 playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, zoomFOV, zoomStepTime * Time.deltaTime);
@@ -270,7 +271,7 @@ public class FirstPersonController : MonoBehaviour
         }
 
         #endregion
-        #endregion
+        
 
         #region Sprint
 
