@@ -4,26 +4,30 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    Rigidbody bulletRb;
-
-    public float power = 100f;
-    public float lifeTime = 4f;
+    public float velocidad = 20f;
+    public Rigidbody rb;
+    public int dano = 10;
 
     // Start is called before the first frame update
     void Start()
     {
-        bulletRb = GetComponent<Rigidbody>();
-        bulletRb.velocity = this.transform.forward * power;
-
-        Destroy(this.gameObject, lifeTime); // Destruye la bala después de lifeTime segundos
+        rb.velocity = transform.right * velocidad;
+        Destroy(gameObject, 10f);
     }
 
-    // Detectar colisiones
-    void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        // Aquí puedes agregar más lógica para interactuar con el objeto que golpeas
-        Debug.Log("Hice daño"); // Imprime el mensaje cuando la bala golpea algo
+        if (collision.CompareTag("Enemigo"))
+        {
+            ZombieAI enemigo = collision.GetComponent<ZombieAI>();
 
-        Destroy(this.gameObject); // Destruye la bala cuando hace contacto
+        if (enemigo != null)
+        {
+            enemigo.tomarDano(dano);
+            Destroy(gameObject);
+        }
+
+        }
     }
 }
+

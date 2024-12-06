@@ -59,7 +59,7 @@ public class BossAI : MonoBehaviour
         {
             alturaVueloObjetivo = Random.Range(11.42f, maxAltura); // Define el nuevo l�mite de altura
             cronometroCambioAltura = 0;
-            Debug.Log($"Nueva altura de vuelo objetivo: {alturaVueloObjetivo}");
+          //   Debug.Log($"Nueva altura de vuelo objetivo: {alturaVueloObjetivo}");
         }
 
         float nuevaAltura = Mathf.MoveTowards(transform.position.y, alturaVueloObjetivo, velocidadCambioAltura * Time.deltaTime);
@@ -86,7 +86,7 @@ public class BossAI : MonoBehaviour
                 case 0:
                     animator.SetBool("Attack", false);
                     animatorAlas.SetInteger("Mode", 0); // Alas en idle
-                    Debug.Log("Enemigo en aire: Quieto.");
+                  //  Debug.Log("Enemigo en aire: Quieto.");
                     break;
 
                 case 1:
@@ -100,7 +100,7 @@ public class BossAI : MonoBehaviour
                     transform.Translate(Vector3.forward * velocidadVuelo / 2 * Time.deltaTime);
                     animator.SetBool("Attack", false);
                     animatorAlas.SetInteger("Mode", 1); // Alas en walk
-                    Debug.Log("Enemigo en aire: Volando en direcci�n aleatoria.");
+                  //  Debug.Log("Enemigo en aire: Volando en direcci�n aleatoria.");
                     break;
             }
         }
@@ -110,7 +110,7 @@ public class BossAI : MonoBehaviour
             {
                 tiempoOscilacion += Time.deltaTime;
                 animatorAlas.SetInteger("Mode", 2); // Alas en fly
-                Debug.Log("Enemigo en aire: Persiguiendo al jugador.");
+             //    Debug.Log("Enemigo en aire: Persiguiendo al jugador.");
             }
             else
             {
@@ -150,7 +150,7 @@ public class BossAI : MonoBehaviour
                     animator.SetBool("Attack", true);
                     animatorAlas.SetInteger("Mode", 2); // Alas en fly
                     atacando = true;
-                    Debug.Log("Enemigo en aire: Atacando al jugador en movimiento orbital.");
+                 //    Debug.Log("Enemigo en aire: Atacando al jugador en movimiento orbital.");
                 }
                 else
                 {
@@ -176,7 +176,7 @@ public class BossAI : MonoBehaviour
             Vector3 direccionHaciaJugador = (target.transform.position - fuegoAtaque.transform.position).normalized;
             fuegoAtaque.transform.rotation = Quaternion.LookRotation(direccionHaciaJugador);
 
-            Debug.Log("Lanzando fuego al jugador.");
+         //    Debug.Log("Lanzando fuego al jugador.");
         }
     }
 
@@ -185,7 +185,7 @@ public class BossAI : MonoBehaviour
         if (fuegoAtaque != null && fuegoAtaque.activeSelf)
         {
             fuegoAtaque.SetActive(false);
-            Debug.Log("Fuego desactivado.");
+          //   Debug.Log("Fuego desactivado.");
         }
     }
 

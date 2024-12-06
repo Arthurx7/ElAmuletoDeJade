@@ -8,18 +8,18 @@ public class PlayerHealth : MonoBehaviour
     public Image bloodEffectImage; // Referencia a la imagen del efecto de sangre
     private int maxHealth = 100;
     private int currentHealth;
-    private int damageAmount = 2;
+    private int damageAmount = 5;
     private int healAmountPerSecond = 2;
     private float timeSinceLastDamage = 0f;
     private float healDelay = 3f;
     private float healTimer = 0f;
     private bool inFireZone = false;
     private float fireDamageTimer = 0f;
-    private int fireDamagePerSecond = 2; // Daño base por fuego
-    private float fireDamageMultiplier = 1f; // Multiplicador del daño por fuego
+    private int fireDamagePerSecond = 2; // Daï¿½o base por fuego
+    private float fireDamageMultiplier = 1f; // Multiplicador del daï¿½o por fuego
     private float fireMultiplierIncreaseRate = 0.5f; // Velocidad de aumento del multiplicador
-    private float maxFireDamageMultiplier = 5f; // Máximo multiplicador permitido
-    private float bloodEffectDuration = 0.5f; // Duración del efecto de sangre
+    private float maxFireDamageMultiplier = 5f; // Mï¿½ximo multiplicador permitido
+    private float bloodEffectDuration = 0.5f; // Duraciï¿½n del efecto de sangre
     private float bloodEffectFadeSpeed = 1f; // Velocidad de desvanecimiento del efecto
 
     void Start()
@@ -28,7 +28,7 @@ public class PlayerHealth : MonoBehaviour
         healthSlider.maxValue = maxHealth;
         healthSlider.value = currentHealth;
 
-        // Asegúrate de que la imagen del efecto de sangre esté inicialmente invisible
+        // Asegï¿½rate de que la imagen del efecto de sangre estï¿½ inicialmente invisible
         if (bloodEffectImage != null)
         {
             var tempColor = bloodEffectImage.color;
@@ -56,7 +56,7 @@ public class PlayerHealth : MonoBehaviour
         {
             fireDamageTimer += Time.deltaTime;
 
-            // Incrementa el multiplicador de daño por fuego con el tiempo
+            // Incrementa el multiplicador de daï¿½o por fuego con el tiempo
             if (fireDamageMultiplier < maxFireDamageMultiplier)
             {
                 fireDamageMultiplier += fireMultiplierIncreaseRate * Time.deltaTime;
@@ -82,7 +82,7 @@ public class PlayerHealth : MonoBehaviour
         {
             inFireZone = true;
             fireDamageMultiplier = 1f; // Reinicia el multiplicador al entrar en la zona de fuego
-            Debug.Log("Jugador en zona de fuego. Daño progresivo activado.");
+            Debug.Log("Jugador en zona de fuego. Daï¿½o progresivo activado.");
         }
     }
 
@@ -93,7 +93,7 @@ public class PlayerHealth : MonoBehaviour
             inFireZone = false;
             fireDamageTimer = 0f;
             fireDamageMultiplier = 1f; // Reinicia el multiplicador al salir de la zona
-            Debug.Log("Jugador salió de la zona de fuego. Daño progresivo desactivado.");
+            Debug.Log("Jugador saliï¿½ de la zona de fuego. Daï¿½o progresivo desactivado.");
         }
     }
 
@@ -142,7 +142,7 @@ public class PlayerHealth : MonoBehaviour
             StartCoroutine(ShowBloodEffect());
         }
 
-        Debug.Log($"Recibiendo daño por fuego: -{amount} puntos. Vida actual: {currentHealth}");
+        Debug.Log($"Recibiendo daï¿½o por fuego: -{amount} puntos. Vida actual: {currentHealth}");
     }
 
     private void RegenerateHealth(int amount)
@@ -168,7 +168,7 @@ public class PlayerHealth : MonoBehaviour
         tempColor.a = 1f;
         bloodEffectImage.color = tempColor;
 
-        // Espera la duración del efecto
+        // Espera la duraciï¿½n del efecto
         yield return new WaitForSeconds(bloodEffectDuration);
 
         // Desvanece el efecto de sangre

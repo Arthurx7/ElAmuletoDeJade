@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ZombieAI : MonoBehaviour
 {
+    public int salud = 100; 
+
     public int rutina;
     public float cronometro;
     public Animator animator;
@@ -11,23 +13,42 @@ public class ZombieAI : MonoBehaviour
     public GameObject target;
     public bool atacando;
 
+    public GameObject arma;
+    public bool stuneado;
+
+    public RangoEnemigos rango;
+    public float speed;
+
+    public UnityEngine.AI.NavMeshAgent agente;
+    public float distanciaAtaque;
+    public float radioVision;
+
+    private bool isMovingToTarget;
+
     void Start()
     {
         animator = GetComponent<Animator>();
-        target = GameObject.Find("FirstPersonController");
+        agente = GetComponent<UnityEngine.AI.NavMeshAgent>();
     }
 
     void Update()
     {
-        Compartamiento_Enemigo();
+        
+        if(salud <= 0){
+            animator.SetBool("Die", true);
+        }
+        ComportamientoEnemigo();
     }
 
-    public void Compartamiento_Enemigo()
+    public void ComportamientoEnemigo()
     {
-        if (Vector3.Distance(transform.position, target.transform.position) > 5)
+        if (Vector3.Distance(transform.position, target.transform.position) > radioVision)
         {
+            agente.enabled = true;
             animator.SetBool("Run", false);
-            cronometro += 1 * Time.deltaTime;
+
+            cronometro += Time.deltaTime;
+
             if (cronometro >= 4)
             {
                 rutina = Random.Range(0, 2);
@@ -46,39 +67,72 @@ public class ZombieAI : MonoBehaviour
                     break;
                 case 2:
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, angulo, 0.5f);
-                    transform.Translate(Vector3.forward * 1 / 2 * Time.deltaTime);
+                    transform.Translate(Vector3.forward * speed * Time.deltaTime);
                     animator.SetBool("Walk", true);
                     break;
             }
         }
         else
         {
-            if (Vector3.Distance(transform.position, target.transform.position) > 1.4 && !atacando)
+            agente.SetDestination(target.transform.position);
+
+            if (Vector3.Distance(transform.position, target.transform.position) > distanciaAtaque && !atacando)
             {
-                var lookPos = target.transform.position - transform.position;
-                lookPos.y = 0;
-                var rotation = Quaternion.LookRotation(lookPos);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 2);
                 animator.SetBool("Walk", false);
                 animator.SetBool("Run", true);
-                transform.Translate(Vector3.forward * 2 * Time.deltaTime);
-                animator.SetBool("Attack", false);
+                isMovingToTarget = true;
             }
-            else if ((Vector3.Distance(transform.position, target.transform.position) <= 1.4))
+            else
             {
-                animator.SetBool("Walk", false);
-                animator.SetBool("Run", false);
-                animator.SetBool("Attack", true);
-                atacando = true;
+                if (!atacando)
+                {
+                    animator.SetBool("Walk", false);
+                    animator.SetBool("Run", false);
+                    isMovingToTarget = false;
+                }
             }
+        }
 
+    
+    }
+
+    public void FinalAni()
+    {
+        
+        if (Vector3.Distance(transform.position, target.transform.position) > distanciaAtaque + 0.2f)
+        {
+            animator.SetBool("Atack", false);
+        }
+
+        atacando = false;
+        stuneado = false;
+        rango.GetComponent<CapsuleCollider>().enabled = true;
+    }
+
+    public void ColliderWeaponTrue()
+    {
+        arma.GetComponent<BoxCollider>().enabled = true;
+    }
+
+    public void ColliderWeaponFalse()
+    {
+        arma.GetComponent<BoxCollider>().enabled = false;
+    }
+
+    public void tomarDano(int damage)
+    {
+        salud -= damage;
+
+        
+        if(salud < 0)
+        {
+            Morir();
         }
 
     }
 
-    public void Final_Animacion()
+    private void Morir()
     {
-        animator.SetBool("Attack", false);
-        atacando = false;
+        Destroy(gameObject,3f);
     }
 }
