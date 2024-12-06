@@ -13,6 +13,7 @@ TagManager:
   - DisturbingEvent
   - PositiveEvent
   - opciones
+  - Camandula
   layers:
   - Default
   - TransparentFX
