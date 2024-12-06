@@ -6,6 +6,7 @@ public class RotacionPuerta : MonoBehaviour
 {
     public Animator anim;
     public LockControl activado;
+    private bool isAnimationFinished = false; // Flag para saber si la animación terminó
 
     // Start is called before the first frame update
     void Start()

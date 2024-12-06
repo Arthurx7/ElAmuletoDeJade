@@ -6,9 +6,13 @@ using UnityEngine.UI; // Necesario para manejar las imágenes
 public class Recolectables : MonoBehaviour
 {
     // Referencias a las imágenes
-    public Image camandulaImage;
-    public Image cruzImage;
     public Image cartaImage;
+    public Image aguaImage;
+    public Image rosarioImage;
+
+    public bool camandula = false;
+
+    private int total;
 
     private void OnTriggerStay(Collider other)
     {
@@ -16,23 +20,37 @@ public class Recolectables : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Detectar si se presiona la tecla E
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 // Validar la etiqueta del objeto en el que está este script
                 switch (gameObject.tag)
                 {
-                    case "Camandula":
-                        SetImageOpacity(camandulaImage, 1f); // Camándula
-                        Destroy(gameObject);
-                        break;
-                    case "Cruz":
-                        SetImageOpacity(cruzImage, 1f); // Cruz
-                        break;
                     case "Carta":
-                        SetImageOpacity(cartaImage, 1f); // Carta
+                        SetImageOpacity(cartaImage, 1f); // Cruz
+                        total++;
+                        gameObject.SetActive(false);
+                        break;
+                    case "Agua":
+                        SetImageOpacity(aguaImage, 1f); // Carta
+                        total++;
+                        //Destroy(gameObject);
+                         gameObject.SetActive(false);
                         break;
                 }
             }
+        }
+    }
+    void Update() {
+        if(camandula)
+        {
+            SetImageOpacity(rosarioImage, 1f); // Cruz
+            total++;
+            camandula=false;
+        }
+
+        if(total==3)
+        {
+            Debug.Log("Total de objetos recolectados");
         }
     }
 

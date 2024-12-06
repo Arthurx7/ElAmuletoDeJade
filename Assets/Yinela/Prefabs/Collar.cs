@@ -8,12 +8,14 @@ public class Collar : MonoBehaviour
     public GameObject gameObjectToActivate2;// El GameObject que deseas activar
     public GameObject gameObjectToDeactivate; // El GameObject que deseas desactivar
 
-    private bool isInTriggerZone = false; // Para saber si el jugador está dentro del área del trigger
+    public Recolectables recolectables;
+
+    private bool isInTriggerZone = false; // Para saber si el jugador estï¿½ dentro del ï¿½rea del trigger
 
     void OnTriggerEnter(Collider other)
     {
-        // Cuando el jugador entra en el trigger, activar la detección de la tecla "E"
-        if (other.CompareTag("Player")) // Asegúrate de que el objeto que entra sea el jugador
+        // Cuando el jugador entra en el trigger, activar la detecciï¿½n de la tecla "E"
+        if (other.CompareTag("Player")) // Asegï¿½rate de que el objeto que entra sea el jugador
         {
             isInTriggerZone = true;
         }
@@ -21,7 +23,7 @@ public class Collar : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        // Cuando el jugador sale del trigger, desactivar la detección de la tecla "E"
+        // Cuando el jugador sale del trigger, desactivar la detecciï¿½n de la tecla "E"
         if (other.CompareTag("Player"))
         {
             isInTriggerZone = false;
@@ -38,6 +40,7 @@ public class Collar : MonoBehaviour
             {
                 gameObjectToActivate.SetActive(true);
                 gameObjectToActivate2.SetActive(true);
+                recolectables.camandula = true;
             }
 
             if (gameObjectToDeactivate != null)
