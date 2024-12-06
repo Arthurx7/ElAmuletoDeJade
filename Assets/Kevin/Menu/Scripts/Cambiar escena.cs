@@ -21,5 +21,9 @@ public class Cambiarescena : MonoBehaviour
     public void CambiarEscena()
     {
         SceneManager.LoadScene(1);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
+
+    
 }
