@@ -11,7 +11,7 @@ public class LockControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        result = new int[]{0,0,0};
+        result = new int[]{5,5,5};
         correctCombination = new int[] {6,4,0};
         RotatePadlock.Rotated += CheckResults;
     }
