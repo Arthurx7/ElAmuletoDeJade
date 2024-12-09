@@ -96,17 +96,17 @@ PrefabInstance:
     - target: {fileID: -6005207051906239778, guid: e1984fc945fe03343bf8e40117c3c5d7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.4823
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6005207051906239778, guid: e1984fc945fe03343bf8e40117c3c5d7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.4489
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6005207051906239778, guid: e1984fc945fe03343bf8e40117c3c5d7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.9297
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6005207051906239778, guid: e1984fc945fe03343bf8e40117c3c5d7,
         type: 3}
@@ -199,9 +199,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a529a59283dd724b85328cc646db3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 20
-  rb: {fileID: 8860091264991011637}
-  dano: 10
+  power: 100
+  lifeTime: 4
+  dano: 50
 --- !u!54 &8860091264991011637
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

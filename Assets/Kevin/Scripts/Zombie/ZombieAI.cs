@@ -33,11 +33,18 @@ public class ZombieAI : MonoBehaviour
 
     void Update()
     {
-        
-        if(salud <= 0){
-            animator.SetBool("Die", true);
+        if (salud <= 0)
+        {
+            if (!animator.GetBool("Die"))
+            {
+                animator.SetBool("Die", true);
+                agente.enabled = false; // Desactivar el NavMeshAgent
+            }
         }
-        ComportamientoEnemigo();
+        else
+        {
+            ComportamientoEnemigo();
+        }
     }
 
     public void ComportamientoEnemigo()

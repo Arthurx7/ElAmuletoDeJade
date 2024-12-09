@@ -44,7 +44,7 @@ public class PaperInteraction : MonoBehaviour
             {
                 if (hit.transform.gameObject)
                 {
-                    Debug.Log("Presiona E para interactuar");
+                    //Debug.Log("Presiona E para interactuar");
                 }
 
                 if (hit.transform.gameObject == paper && Input.GetKeyDown(KeyCode.E))
