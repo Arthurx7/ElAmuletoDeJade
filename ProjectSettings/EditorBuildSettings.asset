@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Level-1/Conifers Cast URP.unity
     guid: 446ee6e3754519441a2176af0e75cc27
+  - enabled: 1
+    path: Assets/Kevin/Menu/Derrota.unity
+    guid: cd98d1e58405aea498b43bd69fe7528c
+  - enabled: 1
+    path: Assets/Kevin/Menu/Victoria.unity
+    guid: d541bce682e6d454d9a2ffce79102466
   m_configObjects: {}

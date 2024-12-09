@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
@@ -55,6 +56,7 @@ public class BossHealth : MonoBehaviour
 
     private void Die()
     {
+        SceneManager.LoadScene(3);
         Debug.Log("El jefe ha muerto.");
         Destroy(gameObject); // Destruye el objeto jefe
     }
