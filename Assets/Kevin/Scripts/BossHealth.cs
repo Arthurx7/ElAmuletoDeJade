@@ -20,15 +20,15 @@ public class BossHealth : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         // Verifica si el objeto con el que colisionó tiene el tag "Bullet"
-        if (collision.gameObject.CompareTag("Bullet"))
+        if (other.gameObject.CompareTag("Bullet"))
         {
             TakeDamage(20); // Reduce 20 puntos de vida
 
             // Opcional: Destruir la bala después del impacto
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
         }
     }
 
@@ -56,6 +56,8 @@ public class BossHealth : MonoBehaviour
 
     private void Die()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene(3);
         Debug.Log("El jefe ha muerto.");
         Destroy(gameObject); // Destruye el objeto jefe

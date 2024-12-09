@@ -16,8 +16,8 @@ public class PlayerHealth : MonoBehaviour
     private float healTimer = 0f;
     private bool inFireZone = false;
     private float fireDamageTimer = 0f;
-    private int fireDamagePerSecond = 2; // Da�o base por fuego
-    private float fireDamageMultiplier = 1f; // Multiplicador del da�o por fuego
+    private int fireDamagePerSecond = 4; // Da�o base por fuego
+    private float fireDamageMultiplier = 2f; // Multiplicador del da�o por fuego
     private float fireMultiplierIncreaseRate = 0.5f; // Velocidad de aumento del multiplicador
     private float maxFireDamageMultiplier = 5f; // M�ximo multiplicador permitido
     private float bloodEffectDuration = 0.5f; // Duraci�n del efecto de sangre
@@ -120,6 +120,8 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth == 0)
         {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             SceneManager.LoadScene(2);
             Debug.Log("El personaje ha muerto.");
         }
@@ -129,9 +131,16 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth -= amount;
 
-        if (currentHealth < 0)
+        if (currentHealth <= 0)
         {
             currentHealth = 0;
+        }
+        if (currentHealth == 0)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            SceneManager.LoadScene(2);
+            Debug.Log("El personaje ha muerto.");
         }
 
         healthSlider.value = currentHealth;

@@ -1,47 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Pausa : MonoBehaviour
 {
     public GameObject ObjectMenuPausa;
-    public bool pausa = false;
-    
+    private bool pausa = false;
 
     void Start()
     {
         ObjectMenuPausa.SetActive(false);
+        SetCursorState(false, CursorLockMode.Locked); // Asegúrate de que el cursor esté oculto al iniciar
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (pausa == false)
-            {
-                ObjectMenuPausa.SetActive(true);
-                
-                pausa = true;
-
-                Time.timeScale = 0f;
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-
-                AudioSource[] sonidos = FindObjectsOfType<AudioSource>();
-                foreach (AudioSource audio in sonidos)
-                {
-                    if (audio.isPlaying) // Solo pausa los que están reproduciéndose
-                    {
-                        audio.Pause();
-                    }
-                }
-            }
-            else if (pausa == true)
+            if (pausa)
             {
                 Resumir();
+            }
+            else
+            {
+                Pausar();
+            }
+        }
+    }
+
+    private void Pausar()
+    {
+        ObjectMenuPausa.SetActive(true);
+        pausa = true;
+
+        Time.timeScale = 0f;
+        SetCursorState(true, CursorLockMode.None);
+
+        // Pausar todos los sonidos
+        foreach (AudioSource audio in FindObjectsOfType<AudioSource>())
+        {
+            if (audio.isPlaying)
+            {
+                audio.Pause();
             }
         }
     }
@@ -49,15 +47,15 @@ public class Pausa : MonoBehaviour
     public void Resumir()
     {
         ObjectMenuPausa.SetActive(false);
-        pausa=false;
+        pausa = false;
 
         Time.timeScale = 1f;
-        Cursor.visible=false;
-        Cursor.lockState = CursorLockMode.Locked;
-        AudioSource[] sonidos = FindObjectsOfType<AudioSource>();
-        foreach (AudioSource audio in sonidos)
+        SetCursorState(false, CursorLockMode.Locked);
+
+        // Reanudar todos los sonidos
+        foreach (AudioSource audio in FindObjectsOfType<AudioSource>())
         {
-            if (!audio.isPlaying) // Solo reproduce los que estaban pausados
+            if (!audio.isPlaying)
             {
                 audio.Play();
             }
@@ -82,11 +80,22 @@ public class Pausa : MonoBehaviour
 
     public void CambiarMenu()
     {
+        Resumir2(); // Asegúrate de reanudar el juego antes de cambiar al menú
         TransitionManager.Instance.LoadScene(TransitionManager.SCENE_NAME_MAIN_MENU);
-        Resumir2();
     }
 
-
-
-
+    private void SetCursorState(bool visible, CursorLockMode lockState)
+    {
+        Cursor.visible = visible;
+        Cursor.lockState = lockState;
+    }
 }
+
+
+
+
+   
+
+
+
+
