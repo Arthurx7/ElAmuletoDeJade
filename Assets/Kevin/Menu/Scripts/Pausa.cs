@@ -82,7 +82,7 @@ public class Pausa : MonoBehaviour
 
     public void CambiarMenu()
     {
-        SceneManager.LoadScene(0);
+        TransitionManager.Instance.LoadScene(TransitionManager.SCENE_NAME_MAIN_MENU);
         Resumir2();
     }
 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -119,6 +120,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth == 0)
         {
+            SceneManager.LoadScene(2);
             Debug.Log("El personaje ha muerto.");
         }
     }

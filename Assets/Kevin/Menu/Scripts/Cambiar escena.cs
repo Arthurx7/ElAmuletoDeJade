@@ -20,10 +20,16 @@ public class Cambiarescena : MonoBehaviour
 
     public void CambiarEscena()
     {
-        SceneManager.LoadScene(1);
+        TransitionManager.Instance.LoadScene(TransitionManager.SCENE_NAME_GAME);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    
+    public void CambiarMenu()
+    {
+        TransitionManager.Instance.LoadScene(TransitionManager.SCENE_NAME_MAIN_MENU);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
 }
