@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    public float velocidad = 20f;
-    public Rigidbody rb;
-    public int dano = 10;
+    Rigidbody bulletRb;
+
+    public float power = 100f;
+    public float lifeTime = 4f;
+    public int dano = 50;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb.velocity = transform.right * velocidad;
-        Destroy(gameObject, 10f);
+        bulletRb = GetComponent<Rigidbody>();
+        bulletRb.velocity = this.transform.forward * power;
+
+        Destroy(this.gameObject, lifeTime); // Destruye la bala despu�s de lifeTime segundos
     }
 
-    private void OnTriggerEnter(Collider collision)
+    // Detectar colisiones
+       private void OnTriggerEnter(Collider collision)
     {
         if (collision.CompareTag("Enemigo"))
         {
@@ -30,4 +35,3 @@ public class BulletController : MonoBehaviour
         }
     }
 }
-
