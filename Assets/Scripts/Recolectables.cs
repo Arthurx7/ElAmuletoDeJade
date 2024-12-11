@@ -20,7 +20,7 @@ public class Recolectables : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Detectar si se presiona la tecla E
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 // Validar la etiqueta del objeto en el que está este script
                 switch (gameObject.tag)

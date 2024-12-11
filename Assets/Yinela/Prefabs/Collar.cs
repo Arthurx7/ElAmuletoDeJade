@@ -33,7 +33,7 @@ public class Collar : MonoBehaviour
     void Update()
     {
         // Si estamos en la zona del trigger y se presiona la tecla "E"
-        if (isInTriggerZone && Input.GetKeyDown(KeyCode.E))
+        if (isInTriggerZone && Input.GetKeyDown(KeyCode.F))
         {
             // Activar el GameObject y desactivar el otro
             if (gameObjectToActivate != null)
